@@ -13,9 +13,9 @@ const firebaseConfig = {
     measurementId: "G-XEHKQYJM2M"
   };
 
-if (!firebase.apps.length){
-    const app = initializeApp(firebaseConfig);
-    const analytics = getAnalytics(app);
-}
 
-export {firebase}
+  if (!firebase.apps.length){
+    firebase.initializeApp(firebaseConfig);
+  }
+
+  export {firebase}

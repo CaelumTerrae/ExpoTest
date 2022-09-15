@@ -1,4 +1,4 @@
-import { Alert, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 import React, {useState} from 'react';
 import * as ImagePicker from 'expo-image-picker';
 import {firebase} from '../config'
@@ -26,7 +26,6 @@ const UploadScreen = () => {
         const blob = await response.blob();
         const filename = image.uri.substring(image.uri.lastIndexOf('/') + 1);
         var ref = firebase.storage().ref().child(filename).put(blob);
-
         try {
             await ref;
         } catch (e) {
@@ -40,13 +39,13 @@ const UploadScreen = () => {
     };
     return(
         <SafeAreaView style={styles.container}>
-            <ThouchableOpacity style={StyleSheet.selectButton} onPress={pickImage}>
-                <Text style={styles.buttonText}></Text>
-            </ThouchableOpacity>
+            <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
+                <Text style={styles.buttonText}>Pick an image</Text>
+            </TouchableOpacity>
             <View style={styles.imageContainer}>
                 {image && <Image source={{uri: image.uri}} style={{width: 300, height: 300}}/>}
-                <TouchableOpacity>
-                    <Text style={styles.buttonText}>
+                <TouchableOpacity style={styles.uploadButton}>
+                    <Text style={styles.buttonText} onPress={uploadImage}>
                         Upload Image
                     </Text>
                 </TouchableOpacity>
